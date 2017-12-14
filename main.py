@@ -1,5 +1,6 @@
 import pygame as pg
 from Input import Listener
+from net import Session
 
 #Initialisation & fps settings
 pg.init()
@@ -11,7 +12,7 @@ DISPLAY = pg.display.set_mode((1200,800),0,32)
 pg.display.set_caption('ARSWA 2')
 
 #Input listener
-listener = Listener("null")
+listener = Listener(None)
 
 #FontSettings
 fontObj = pg.font.SysFont('freesansbold.tff',32)
@@ -37,3 +38,8 @@ def main():
 
 #Call main
 #main()
+
+serveraddress = ('localhost',2055)
+session = Session(serveraddress)
+session.run()
+session.csend('Message...')
