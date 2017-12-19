@@ -7,4 +7,14 @@ class Listener():
 
     def listen(self):
         keys = pg.key.get_pressed()
-        print(keys)
+        direction = 0  #0 null 1 is right -1 is left
+
+        if keys[pg.K_RIGHT]:
+            if not keys[pg.K_LEFT]:
+                direction = 1
+        if keys[pg.K_LEFT]:
+            if not keys[pg.K_RIGHT]:
+                direction = -1
+
+        self.player.direction = direction
+
