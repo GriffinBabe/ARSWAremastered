@@ -11,9 +11,10 @@ class Session(Thread):
 
     def run(self):
         while True:
-            self.csend("Hellooo")
+            print("Waiting for packets...")
             data, server = self.so.recvfrom(4096) #And not recv(...) as we are client
             print(data)
 
-    def csend(self,data):
+    def send(self,data):
+        print("try to send "+data.decode("utf-8"))
         self.so.sendto(data,self.serveraddress)

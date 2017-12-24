@@ -2,9 +2,11 @@ import pygame as pg
 
 class Player:
 
-    def __init__(self):
+    def __init__(self,username):
         """Player constructor, x and y are screen and game positions, vx is
          actual speed in X, vy is actual speed in Y, width and height..."""
+        self.username = username
+        self.team = "Blue" #There is Blue and Red
         self.x = 0
         self.y = 0
         self.dx = 0

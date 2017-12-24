@@ -15,9 +15,11 @@ pg.display.set_caption('ARSWA 2')
 
 
 #Game elements
-player = Player()
+players = [] #List of different players
 collidables = [] #List containing collidable elements
 renderables = [] #List containing renderable elements
+player = Player("GriffinBabe")
+players.append(player)
 collidables.append(player)
 renderables.append(player)
 
@@ -55,11 +57,13 @@ def main():
 
 
 #Call main
-main()
 
-"""
 serveraddress = ('localhost',2055)
 session = Session(serveraddress)
-session.run()
-session.csend('Message...')
-"""
+session.start()
+connectionstring = "CO-"+player.username+"-"+player.team+"-"+str(player.x)+"-"+str(player.y)
+connectionpacket = connectionstring.encode("utf-8")
+session.send(connectionpacket)
+
+main()
+
