@@ -7,6 +7,7 @@ class Player:
          actual speed in X, vy is actual speed in Y, width and height..."""
         self.username = username
         self.team = "Blue" #There is Blue and Red
+        self.online = "True"
         self.x = 0
         self.y = 0
         self.dx = 0
@@ -15,9 +16,14 @@ class Player:
         self.height = 64
         self.direction = 0 #0 in Front 1 in right and -1 in left
         self.character = Warrior()
+        self.session = None
+
+    def setsession(self,session):
+        self.session = session
 
 
     def updatePos(self,collidables):
+
         oldX = self.x
         oldY = self.y
 
@@ -50,6 +56,8 @@ class Player:
             self.x = oldX
             self.dx = 0
 
+        self.session.moove()
+
     def collisionX(self,collidables):
         #TODO: Finish the collision with collidable items.
         if self.x < 0 or self.x > 1200 or self.y < 0 or self.y > 800:
@@ -60,10 +68,13 @@ class Player:
         """Renders the player, kinda an java interface"""
         if self.direction == 0:
             DISPLAY.blit(self.character.imageFront,(self.x,self.y))
+            print("Rendering player: " + self.username)
         elif self.direction == 1:
             DISPLAY.blit(self.character.imageRight,(self.x,self.y))
+            print("Rendering player: " + self.username)
         elif self.direction == -1:
             DISPLAY.blit(self.character.imageLeft,(self.x,self.y))
+            print("Rendering player: " + self.username)
 
 
 

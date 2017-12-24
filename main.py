@@ -17,11 +17,10 @@ pg.display.set_caption('ARSWA 2')
 #Game elements
 players = [] #List of different players
 collidables = [] #List containing collidable elements
-renderables = [] #List containing renderable elements
-player = Player("GriffinBabe")
+username = input("Username: ")
+player = Player(username)
 players.append(player)
 collidables.append(player)
-renderables.append(player)
 
 
 #Input listener
@@ -43,7 +42,19 @@ def main():
                 pg.quit()
 
         listener.listen() #Takes the pressed keys and acts about it
-        player.updatePos(None)
+        player.updatePos(collidables)
+
+        #Just info
+        if frameCount % 60 == 0:
+            for pl in players:
+                print(pl.username+" "+str(pl.x)+" "+str(pl.y)+" "+str(pl.dx)+" "+str(pl.dy)+" "+
+                      str(pl.direction))
+
+        #Sets the renderables
+        renderables = []
+        for p in players:
+            if p.online:
+                renderables.append(p)
 
         #Renders every game element
         DISPLAY.fill(pg.Color(0,0,0)) #Covers the screen in black
@@ -56,12 +67,13 @@ def main():
         fpsClock.tick(FPS)
 
 
-#Call main
+#Main call
 
 serveraddress = ('localhost',2055)
-session = Session(serveraddress)
+session = Session(serveraddress,players,player)
+player.setsession(session)
 session.start()
-connectionstring = "CO-"+player.username+"-"+player.team+"-"+str(player.x)+"-"+str(player.y)
+connectionstring = "CO-"+player.username+"-"+player.team+"-"+"Warrior"+"-"+str(player.x)+"-"+str(player.y)
 connectionpacket = connectionstring.encode("utf-8")
 session.send(connectionpacket)
 
