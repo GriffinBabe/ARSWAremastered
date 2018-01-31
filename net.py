@@ -33,7 +33,7 @@ class Session(Thread):
         PLAYER_MOOVE = "MV"
 
         stringdata = data.decode("utf-8")
-        #print("From server: "+stringdata)
+        print("From server: "+stringdata)
         listdata = stringdata.split("-")
         head = listdata[0]
 

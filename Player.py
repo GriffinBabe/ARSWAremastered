@@ -68,13 +68,10 @@ class Player:
         """Renders the player, kinda an java interface"""
         if self.direction == 0:
             DISPLAY.blit(self.character.imageFront,(self.x,self.y))
-            print("Rendering player: " + self.username)
         elif self.direction == 1:
             DISPLAY.blit(self.character.imageRight,(self.x,self.y))
-            print("Rendering player: " + self.username)
         elif self.direction == -1:
             DISPLAY.blit(self.character.imageLeft,(self.x,self.y))
-            print("Rendering player: " + self.username)
 
 
 

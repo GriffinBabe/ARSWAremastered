@@ -45,17 +45,16 @@ def main():
         player.updatePos(collidables)
 
         #Just info
-        if frameCount % 60 == 0:
+        """if frameCount % 60 == 0:
             for pl in players:
                 print(pl.username+" "+str(pl.x)+" "+str(pl.y)+" "+str(pl.dx)+" "+str(pl.dy)+" "+
                       str(pl.direction))
-
+        """
         #Sets the renderables
         renderables = []
         for p in players:
             if p.online:
                 renderables.append(p)
-
         #Renders every game element
         DISPLAY.fill(pg.Color(0,0,0)) #Covers the screen in black
         for renderable in renderables:
