@@ -5,17 +5,19 @@ from Player import Player
 class Session(Thread):
 
     #Thread contstruction
-    def __init__(self,serveraddress,players,player):
+    def __init__(self,serveraddress,players,player,instructions):
         Thread.__init__(self)
         self.players = players
         self.player = player
         self.so = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-        self.serveraddress = serveraddress #No need to bind as client
+        self.serveraddress = serveraddress #We don't need to bind the socket as a client.
+        self.so.connect(serveraddress)
+        self.instructions = instructions
 
     def run(self):
         while True:
             data, server = self.so.recvfrom(4096) #And not recv(...) as we are client
-            self.parse(data)
+            self.instructions.append(data)
 
     def send(self,data):
         #print("Sending to server: "+data.decode("utf-8"))
@@ -33,7 +35,7 @@ class Session(Thread):
         PLAYER_MOOVE = "MV"
 
         stringdata = data.decode("utf-8")
-        print("From server: "+stringdata)
+        #print("From server: "+stringdata)
         listdata = stringdata.split("-")
         head = listdata[0]
 

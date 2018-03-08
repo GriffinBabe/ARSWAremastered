@@ -66,12 +66,12 @@ class Player:
 
     def render(self,DISPLAY):
         """Renders the player, kinda an java interface"""
-        if self.direction == 0:
-            DISPLAY.blit(self.character.imageFront,(self.x,self.y))
-        elif self.direction == 1:
-            DISPLAY.blit(self.character.imageRight,(self.x,self.y))
-        elif self.direction == -1:
-            DISPLAY.blit(self.character.imageLeft,(self.x,self.y))
+        if str(self.direction) == "0":
+            DISPLAY.blit(self.character.imageFront,(float(self.x),float(self.y)))
+        elif str(self.direction) == "1":
+            DISPLAY.blit(self.character.imageRight,(float(self.x),float(self.y)))
+        elif str(self.direction) == "-1":
+            DISPLAY.blit(self.character.imageLeft,(float(self.x),float(self.y)))
 
 
 

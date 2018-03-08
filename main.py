@@ -41,6 +41,10 @@ def main():
             if event.type == "QUIT":
                 pg.quit()
 
+        for inst in instructions:
+            session.parse(inst)
+            instructions.remove(inst)
+
         listener.listen() #Takes the pressed keys and acts about it
         player.updatePos(collidables)
 
@@ -68,8 +72,9 @@ def main():
 
 #Main call
 
-serveraddress = ('localhost',2055)
-session = Session(serveraddress,players,player)
+serveraddress = ("localhost",2055)
+instructions = [] #List that contains the instructions
+session = Session(serveraddress,players,player,instructions)
 player.setsession(session)
 session.start()
 connectionstring = "CO-"+player.username+"-"+player.team+"-"+"Warrior"+"-"+str(player.x)+"-"+str(player.y)
