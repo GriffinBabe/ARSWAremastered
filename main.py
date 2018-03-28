@@ -46,7 +46,13 @@ def main():
             instructions.remove(inst)
 
         listener.listen() #Takes the pressed keys and acts about it
+
+        for player in players: #Death confirmation
+            if player.hp <= 0:
+                player.alive = False
+                print(player.username+" is death!")
         player.updatePos(collidables)
+        
 
         #Just info
         """if frameCount % 60 == 0:
@@ -77,7 +83,7 @@ instructions = [] #List that contains the instructions
 session = Session(serveraddress,players,player,instructions)
 player.setsession(session)
 session.start()
-connectionstring = "CO-"+player.username+"-"+player.team+"-"+"Warrior"+"-"+str(player.x)+"-"+str(player.y)
+connectionstring = "CO@"+player.username+"@"+player.team+"@"+"Warrior"+"@"+str(player.x)+"@"+str(player.y)
 connectionpacket = connectionstring.encode("utf-8")
 session.send(connectionpacket)
 

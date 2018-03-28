@@ -6,6 +6,7 @@ class Player:
         """Player constructor, x and y are screen and game positions, vx is
          actual speed in X, vy is actual speed in Y, width and height..."""
         self.username = username
+        self.alive = True
         self.team = "Blue" #There is Blue and Red
         self.online = "True"
         self.x = 0
@@ -15,7 +16,7 @@ class Player:
         self.width = 64
         self.height = 64
         self.direction = 0 #0 in Front 1 in right and -1 in left
-        self.character = Warrior()
+        self.character = Warrior(self)
         self.session = None
 
     def setsession(self,session):
@@ -73,14 +74,14 @@ class Player:
         elif str(self.direction) == "-1":
             DISPLAY.blit(self.character.imageLeft,(float(self.x),float(self.y)))
 
-
-
-
 class Warrior:
 
     def __init__(self):
+        self.maxhp = 150
+        self.hp = 150
         self.maxspeed = 400/60
         self.acceleration = 40/60
         self.imageFront = pg.image.load("warriorFront.png")
         self.imageLeft = pg.image.load("warriorLeft.png")
         self.imageRight = pg.image.load("warriorRight.png")
+

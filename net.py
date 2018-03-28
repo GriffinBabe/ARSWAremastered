@@ -24,8 +24,8 @@ class Session(Thread):
         self.so.sendto(data,self.serveraddress)
 
     def moove(self):
-        datastring = "MV-"+self.player.username+"-"+str(self.player.x)+"-"+str(self.player.y)\
-                     +"-"+str(self.player.dx)+"-"+str(self.player.dy)+"-"+str(self.player.direction)
+        datastring = "MV@"+self.player.username+"@"+str(self.player.x)+"@"+str(self.player.y)\
+                     +"@"+str(self.player.dx)+"@"+str(self.player.dy)+"@"+str(self.player.direction)
         self.send(datastring.encode("utf-8"))
 
     def parse(self,data):
@@ -36,7 +36,7 @@ class Session(Thread):
 
         stringdata = data.decode("utf-8")
         #print("From server: "+stringdata)
-        listdata = stringdata.split("-")
+        listdata = stringdata.split("@")
         head = listdata[0]
 
         if listdata[1] == self.player.username: #Doesn't act bc the message had been sent by this client
