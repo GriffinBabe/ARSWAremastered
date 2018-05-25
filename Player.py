@@ -7,7 +7,7 @@ class Player:
          actual speed in X, vy is actual speed in Y, width and height..."""
         self.username = username
         self.alive = True
-        self.team = "Blue" #There is Blue and Red
+        self.team = "Blue"  # There is Blue and Red
         self.online = "True"
         self.x = 0
         self.y = 0
@@ -15,8 +15,8 @@ class Player:
         self.dy = 0
         self.width = 64
         self.height = 64
-        self.direction = 0 #0 in Front 1 in right and -1 in left
-        self.character = Warrior(self)
+        self.direction = 0  # 0 in Front 1 in right and -1 in left
+        self.character = Warrior(player=self)
         self.session = None
 
     def setsession(self,session):
@@ -57,10 +57,10 @@ class Player:
             self.x = oldX
             self.dx = 0
 
-        self.session.moove()
+        self.session.move()
 
     def collisionX(self,collidables):
-        #TODO: Finish the collision with collidable items.
+        # TODO: Finish the collision with collidable items.
         if self.x < 0 or self.x > 1200 or self.y < 0 or self.y > 800:
             return True
         return False
@@ -74,9 +74,11 @@ class Player:
         elif str(self.direction) == "-1":
             DISPLAY.blit(self.character.imageLeft,(float(self.x),float(self.y)))
 
+
 class Warrior:
 
-    def __init__(self):
+    def __init__(self,player):
+        self.player = player
         self.maxhp = 150
         self.hp = 150
         self.maxspeed = 400/60

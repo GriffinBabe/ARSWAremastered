@@ -32,9 +32,9 @@ fontObj = pg.font.SysFont('freesansbold.tff',32)
 
 def main():
 
-    frameCount = 0
+    framecount = 0
 
-    #Main Loop
+    # Main Loop
     while True:
 
         for event in pg.event.get():
@@ -45,41 +45,41 @@ def main():
             session.parse(inst)
             instructions.remove(inst)
 
-        listener.listen() #Takes the pressed keys and acts about it
+        listener.listen()  # Takes the pressed keys and acts about it
 
-        for player in players: #Death confirmation
-            if player.hp <= 0:
+        for player in players:  # Death confirmation
+            if player.character.hp <= 0:
                 player.alive = False
                 print(player.username+" is death!")
         player.updatePos(collidables)
         
 
         #Just info
-        """if frameCount % 60 == 0:
+        """if framecount % 60 == 0:
             for pl in players:
                 print(pl.username+" "+str(pl.x)+" "+str(pl.y)+" "+str(pl.dx)+" "+str(pl.dy)+" "+
                       str(pl.direction))
         """
-        #Sets the renderables
+        # Sets the renderables
         renderables = []
         for p in players:
             if p.online:
                 renderables.append(p)
-        #Renders every game element
-        DISPLAY.fill(pg.Color(0,0,0)) #Covers the screen in black
+        # Renders every game element
+        DISPLAY.fill(pg.Color(0,0,0))  # Covers the screen in black
         for renderable in renderables:
             renderable.render(DISPLAY)
 
         pg.display.update()
 
-        frameCount += 1
+        framecount += 1
         fpsClock.tick(FPS)
 
 
-#Main call
+# Main call
 
 serveraddress = ("localhost",2055)
-instructions = [] #List that contains the instructions
+instructions = []  # List that contains the instructions
 session = Session(serveraddress,players,player,instructions)
 player.setsession(session)
 session.start()

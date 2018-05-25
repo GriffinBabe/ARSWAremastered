@@ -2,28 +2,29 @@ import socket
 from threading import Thread
 from Player import Player
 
+
 class Session(Thread):
 
-    #Thread contstruction
+    # Thread contstruction
     def __init__(self,serveraddress,players,player,instructions):
         Thread.__init__(self)
         self.players = players
         self.player = player
         self.so = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-        self.serveraddress = serveraddress #We don't need to bind the socket as a client.
+        self.serveraddress = serveraddress  # We don't need to bind the socket as a client.
         self.so.connect(serveraddress)
         self.instructions = instructions
 
     def run(self):
         while True:
-            data, server = self.so.recvfrom(4096) #And not recv(...) as we are client
+            data, server = self.so.recvfrom(4096)  # And not recv(...) as we are client
             self.instructions.append(data)
 
     def send(self,data):
-        #print("Sending to server: "+data.decode("utf-8"))
+        # print("Sending to server: "+data.decode("utf-8"))
         self.so.sendto(data,self.serveraddress)
 
-    def moove(self):
+    def move(self):
         datastring = "MV@"+self.player.username+"@"+str(self.player.x)+"@"+str(self.player.y)\
                      +"@"+str(self.player.dx)+"@"+str(self.player.dy)+"@"+str(self.player.direction)
         self.send(datastring.encode("utf-8"))
@@ -49,7 +50,7 @@ class Session(Thread):
                     player.online = True
                     return
             print("New player created: "+listdata[1])
-            self.players.append(Player(listdata[1])) #Adds a new Player to the game if there is no match
+            self.players.append(Player(listdata[1]))  # Adds a new Player to the game if there is no match
 
         if head == PLAYER_DISCONNECTION:
             for player in self.players:
@@ -58,7 +59,7 @@ class Session(Thread):
                     print("Player disconnected: "+listdata[1])
                     return
 
-        if head == PLAYER_MOOVE: #Sets the player x, y, dx and dy info.
+        if head == PLAYER_MOOVE:  # Sets the player x, y, dx and dy info.
             for player in self.players:
                 if player.username == listdata[1]:
                     player.x = listdata[2]
